@@ -1,0 +1,65 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Play Song</title>
+<style>
+  body {
+    text-align: center;
+    padding-top: 40px;
+    background: #222;
+    color: white;
+    font-family: Arial, sans-serif;
+  }
+
+  .back-btn {
+    background: #4ecdc4;
+    padding: 10px 20px;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+
+  .back-btn:hover {
+    background: #45b7d1;
+  }
+
+  audio {
+    margin-top: 20px;
+  }
+</style>
+</head>
+
+<body>
+
+<button class="back-btn" onclick="goBack()">⬅ Back</button>
+
+<h2>Playing Song</h2>
+
+<audio id="music" controls autoplay></audio>
+
+<script>
+  // Load selected song
+  const file = localStorage.getItem("selectedSong");
+
+  if (file) {
+    document.getElementById("music").src = "songs/" + file;
+  } else {
+    document.body.innerHTML += "<p>No song selected!</p>";
+  }
+
+  // Back button function
+  function goBack() {
+    window.location.href = "proj.html";  // <-- Change if your main page name is different
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emotune - Music Interaction</title>
+<script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 25%, #45b7d1 50%, #96ceb4 75%, #ffeaa7 100%);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    min-height: 100vh;
+    padding: 1rem;
+  }
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  video, canvas {
+    width: 100%;
+    border-radius: 12px;
+  }
+  iframe {
+    width: 100%;
+    height: 280px;
+    border-radius: 12px;
+  }
+</style>
+</head>
+
+<body class="flex flex-col items-center">
+
+<h1 class="text-3xl font-bold text-white mb-4">🎵 Emotune Music Interaction</h1>
+
+<!-- Voice Search -->
+<div class="bg-white p-4 rounded shadow-md mb-6 w-full max-w-md">
+  <h2 class="font-semibold mb-2">🎤 Voice Search</h2>
+  <button id="recordBtn" class="px-4 py-2 bg-blue-500 text-white rounded">Start Listening</button>
+  <p id="voiceStatus" class="mt-2 text-gray-600">Click to speak a song name.</p>
+</div>
+
+<!-- Typing Search -->
+<div class="bg-white p-4 rounded shadow-md mb-6 w-full max-w-md">
+  <h2 class="font-semibold mb-2">⌨️ Search Songs</h2>
+  <input id="songInput" type="text" placeholder="Type song name..." class="w-full p-2 border rounded mb-2">
+  <button id="searchBtn" class="px-4 py-2 bg-green-500 text-white rounded">Search</button>
+  <p id="searchResult" class="mt-2 text-gray-600"></p>
+</div>
+
+<!-- Camera Button -->
+<div class="bg-white p-4 rounded shadow-md w-full max-w-md mb-6 text-center">
+  <h2 class="font-semibold mb-2">📷 Capture Mood</h2>
+  <button id="cameraBtn" class="px-4 py-2 bg-purple-500 text-white rounded">
+    Open Camera Page
+  </button>
+  <p class="mt-2 text-gray-600"></p>
+</div>
+
+<script>
+
+/*** Redirect to index.html when camera button clicked ***/
+document.getElementById("cameraBtn").addEventListener("click", () => {
+  window.location.href = "index.html";
+});
+
+
+/*** Redirect function to songs page ***/
+function goToSongsPage(songName) {
+  localStorage.setItem('selectedSong', songName);
+  window.location.href = "songs.html";
+}
+
+
+/*** Speech Recognition ***/
+const recordBtn = document.getElementById("recordBtn");
+const voiceStatus = document.getElementById("voiceStatus");
+
+let recognition;
+let listening = false;
+
+if ("webkitSpeechRecognition" in window) {
+  recognition = new webkitSpeechRecognition();
+  recognition.lang = "en-US";
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  recognition.onstart = () => {
+    listening = true;
+    recordBtn.textContent = "Stop Listening";
+    voiceStatus.textContent = "Listening...";
+  };
+
+  recognition.onresult = (event) => {
+    const text = event.results[0][0].transcript;
+    voiceStatus.textContent = `You said: "${text}"`;
+    goToSongsPage(text);
+  };
+
+  recognition.onend = () => {
+    listening = false;
+    recordBtn.textContent = "Start Listening";
+  };
+}
+
+recordBtn.addEventListener("click", () => {
+  if (!recognition) {
+    alert("Speech Recognition not supported in this browser.");
+    return;
+  }
+
+  if (listening) recognition.stop();
+  else recognition.start();
+});
+
+
+/*** Typing Search ***/
+// document.getElementById("searchBtn").addEventListener("click", () => {
+//   const song = document.getElementById("songInput").value.trim();
+
+//   if (song === "") {
+//     document.getElementById("searchResult").textContent = "Please type a song name.";
+//     return;
+//   }
+
+//   goToSongsPage(song);
+// });
+document.getElementById("searchBtn").addEventListener("click", () => {
+  const song = document.getElementById("songInput").value.trim().toLowerCase();
+
+  if (song === "") {
+    document.getElementById("searchResult").textContent = "Please type a song or emotion.";
+    return;
+  }
+
+  // Emotion → song mapping
+  const emotionSongs = {
+    happy: "happy.mp3",
+    sad: "sad.mp3",
+    angry: "angry.mp3",
+    neutral: "neutral.mp3"
+  };
+
+  // If user typed emotion (happy/sad/angry/neutral)
+  if (emotionSongs[song]) {
+    localStorage.setItem("selectedSong", emotionSongs[song]);
+    window.location.href = "songs.html";
+    return;
+  }
+
+  // Normal text search (example: user says song name)
+  goToSongsPage(song);
+});
+
+
+</script>
+
+</body>
+</html>
