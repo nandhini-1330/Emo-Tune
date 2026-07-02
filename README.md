@@ -35,8 +35,5 @@ Emo-Tune/
 └── neutral.mp3             # Sample track - Neutral
 ```
 
-## **📸 Screenshots**
 
-
-![Recommendations](screenshots/songs.png)
 -->
