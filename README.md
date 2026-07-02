@@ -20,6 +20,7 @@ Traditional music players require users to manually search or select playlists. 
 
 ## **🗂️ Project Structure**
 
+```text
 Emo-Tune/
 ├── index.html          # Landing page
 ├── language.html       # Language selection
@@ -28,9 +29,14 @@ Emo-Tune/
 ├── emo.html            # Emotion detection interface
 ├── songs.html          # Song recommendation and playback
 ├── emo.mp4             # Face detection demo video
-├── happy.mp3            # Sample track — Happy
-├── sad.mp3               # Sample track — Sad
-├── angry.mp3              # Sample track — Angry
-└── neutral.mp3             # Sample track — Neutral
+├── happy.mp3            # Sample track - Happy
+├── sad.mp3               # Sample track - Sad
+├── angry.mp3              # Sample track - Angry
+└── neutral.mp3             # Sample track - Neutral
+```
 
 ## **📸 Screenshots**
+
+
+![Recommendations](screenshots/songs.png)
+-->
