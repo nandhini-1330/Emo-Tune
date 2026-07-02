@@ -1,10 +1,12 @@
 # **🎵 Emo-Tune**
 
-Emo-Tune is a smart music recommendation system that detects a user's emotional state and recommends songs accordingly. The system supports three independent modes of emotion input — **Text**, **Voice**, and **Face Detection (Camera)** — in addition to a **Quiz-based mode** for mood assessment.
+Emo-Tune is a smart music recommendation system that detects a user's emotional state and recommends songs accordingly.
+The system supports three independent modes of emotion input — **Text**, **Voice**, and **Face Detection (Camera)** — in addition to a **Quiz-based mode** for mood assessment.
 
 ## **📖 Overview**
 
-Traditional music players require users to manually search or select playlists. Emo-Tune removes this friction by analyzing the user's current emotional state and automatically curating song recommendations that match their mood, using whichever input method the user prefers.
+Traditional music players require users to manually search or select playlists.
+Emo-Tune removes this friction by analyzing the user's current emotional state and automatically curating song recommendations that match their mood, using whichever input method the user prefers.
 
 ## **✨ Features**
 
@@ -36,4 +38,4 @@ Emo-Tune/
 ```
 
 
--->
+
